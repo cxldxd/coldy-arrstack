@@ -162,19 +162,18 @@ services:
       - 'stack.env'
 
   jellyseerr:
-       image: fallenbagel/jellyseerr:latest
-       container_name: jellyseerr
-       environment:
-            - LOG_LEVEL=debug
-            - TZ=Europe/Amsterdam
-       ports:
-            - 5055:5055
-       volumes:
-            - ${ARRPATH}jellyseerr/config:/app/config
-       restart: unless-stopped
-       env_file:
-        - 'stack.env'
-
+    image: fallenbagel/jellyseerr:latest
+    container_name: jellyseerr
+    environment:
+      - LOG_LEVEL=debug
+      - TZ=Europe/Amsterdam
+    ports:
+      - 5055:5055
+    volumes:
+      - ${ARRPATH}jellyseerr/config:/app/config
+    restart: unless-stopped
+    env_file:
+      - 'stack.env'
 
   flaresolverr:
     # DockerHub mirror flaresolverr/flaresolverr:latest
