@@ -6,7 +6,7 @@ services:
     cap_add:
       - NET_ADMIN
     volumes:
-      - ${ARRPATH}Gluetun:/gluetun
+      - ${ARRPATH}gluetun:/gluetun
     devices:
       - /dev/net/tun:/dev/net/tun
     environment:
