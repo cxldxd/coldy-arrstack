@@ -2,6 +2,7 @@ services:
   gluetun:
     image: qmcgaw/gluetun
     container_name: gluetun
+    network_mode: "bridge"
     restart: unless-stopped
     cap_add:
       - NET_ADMIN
@@ -37,8 +38,6 @@ services:
       - ${ARRPATH}Prowlarr/config:/config
       - ${ARRPATH}Prowlarr/backup:/data/Backup
       - ${ARRPATH}Downloads:/downloads
-    ports:
-      - 9696:9696
     restart: unless-stopped
 
     env_file:
@@ -47,15 +46,12 @@ services:
   sonarr:
     image: linuxserver/sonarr:latest
     container_name: sonarr
-    hostname: sonarr
     network_mode: "service:gluetun"
     volumes:
       - ${ARRPATH}Sonarr/config:/config
       - ${ARRPATH}Sonarr/backup:/data/Backup
       - ${ARRPATH}Sonarr/tvshows:/data/tvshows
       - ${ARRPATH}Downloads:/downloads
-    ports:
-      - 8989:8989
     restart: unless-stopped
     env_file:
       - 'stack.env'                                       
@@ -63,15 +59,12 @@ services:
   radarr:
     image: linuxserver/radarr:latest
     container_name: radarr
-    hostname: radarr
     network_mode: "service:gluetun"
     volumes:
       - ${ARRPATH}Radarr/config:/config
       - ${ARRPATH}Radarr/movies:/data/movies
       - ${ARRPATH}Radarr/backup:/data/Backup
       - ${ARRPATH}Downloads:/downloads
-    ports:
-      - 7878:7878
     restart: unless-stopped
     env_file:
       - 'stack.env'
@@ -79,14 +72,11 @@ services:
   lidarr:
     image: linuxserver/lidarr:latest
     container_name: lidarr
-    hostname: lidarr
     network_mode: "service:gluetun"
     volumes:
       - ${ARRPATH}Lidarr/config:/config
       - ${ARRPATH}Lidarr/music:/data/musicfolder
       - ${ARRPATH}Downloads:/downloads
-    ports:
-      - 8686:8686
     restart: unless-stopped
     env_file:
       - 'stack.env'
@@ -94,14 +84,11 @@ services:
   readarr:
     image: linuxserver/readarr:develop
     container_name: readarr
-    hostname: readarr
     network_mode: "service:gluetun"
     volumes:
       - ${ARRPATH}Readarr/config:/config
       - ${ARRPATH}Readarr/books:/data/books
       - ${ARRPATH}Downloads:/downloads
-    ports:
-      - 8787:8787
     restart: unless-stopped
     env_file:
       - 'stack.env'
@@ -115,14 +102,13 @@ services:
       - ${ARRPATH}Homarr/configs:/app/data/configs
       - ${ARRPATH}Homarr/icons:/app/public/icons
       - ${ARRPATH}Homarr/data:/data
-    ports:
-      - '7575:7575'
     env_file:
       - 'stack.env'
 
   jellyfin:
     image: linuxserver/jellyfin
     container_name: jellyfin
+    network_mode: "bridge"
     ports:
       - '8096:8096/tcp'   # Jellyfin web interface
       - '7359:7359/udp'   # Network discovery
@@ -140,7 +126,6 @@ services:
   qbittorrent:
     image: linuxserver/qbittorrent:latest
     container_name: qbittorrent
-    hostname: qbittorrent
     network_mode: "service:gluetun"
     restart: unless-stopped
     labels:
@@ -148,10 +133,6 @@ services:
     volumes:
       - ${ARRPATH}qbittorrent/config:/config
       - ${ARRPATH}Downloads:/downloads
-    ports:
-      - 8080:8080
-      - 6881:6881
-      - 6881:6881/udp
     environment:
       - WEBUI_PORT=8080
       - TORRENTING_PORT=6881
@@ -163,6 +144,7 @@ services:
   jellyseerr:
     image: fallenbagel/jellyseerr:latest
     container_name: jellyseerr
+    network_mode: "bridge"
     environment:
       - LOG_LEVEL=debug
       - TZ=Europe/Amsterdam
@@ -184,8 +166,6 @@ services:
       - LOG_HTML=${LOG_HTML:-false}
       - CAPTCHA_SOLVER=${CAPTCHA_SOLVER:-none}
       - TZ=Europe/London
-    ports:
-      - 8191:8191
     restart: unless-stopped
 
 
