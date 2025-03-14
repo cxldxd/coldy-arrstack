@@ -102,8 +102,11 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - /run/dbus:/run/dbus:ro
     restart: unless-stopped
+    ports:
+    -  8123:8123
     privileged: true
-
+    env_file:
+      - 'stack.env'
         
   homarr:
     container_name: homarr
@@ -179,6 +182,6 @@ services:
       - LOG_LEVEL=${LOG_LEVEL:-info}
       - LOG_HTML=${LOG_HTML:-false}
       - CAPTCHA_SOLVER=${CAPTCHA_SOLVER:-none}
-      - TZ=Europe/London
+      - TZ=Europe/Amsterdam
     restart: unless-stopped
     
