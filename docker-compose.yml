@@ -102,6 +102,8 @@ services:
       - ${ARRPATH}Homarr/configs:/app/data/configs
       - ${ARRPATH}Homarr/icons:/app/public/icons
       - ${ARRPATH}Homarr/data:/data
+    ports:
+      - '7575:7575'
     env_file:
       - 'stack.env'
 
