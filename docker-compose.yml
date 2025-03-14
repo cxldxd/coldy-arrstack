@@ -97,7 +97,7 @@ services:
     container_name: homarr
     image: ghcr.io/ajnart/homarr:latest
     restart: unless-stopped
-    network_mode: "service:gluetun"
+    network_mode: "bridge"
     volumes:
       - ${ARRPATH}Homarr/configs:/app/data/configs
       - ${ARRPATH}Homarr/icons:/app/public/icons
