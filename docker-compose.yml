@@ -92,6 +92,18 @@ services:
     restart: unless-stopped
     env_file:
       - 'stack.env'
+
+  homeassistant:
+    container_name: homeassistant
+    image: "ghcr.io/home-assistant/home-assistant:stable"
+    network_mode: "bridge"
+    volumes:
+      - ./hass-config:/config
+      - /etc/localtime:/etc/localtime:ro
+      - /run/dbus:/run/dbus:ro
+    restart: unless-stopped
+    privileged: true
+
         
   homarr:
     container_name: homarr
@@ -169,7 +181,4 @@ services:
       - CAPTCHA_SOLVER=${CAPTCHA_SOLVER:-none}
       - TZ=Europe/London
     restart: unless-stopped
-
-
-
     
