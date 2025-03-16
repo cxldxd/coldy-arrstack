@@ -36,8 +36,8 @@ services:
     network_mode: "service:gluetun"
     volumes:
       - ${ARRPATH}Prowlarr/config:/config
-      - ${ARRPATH}Prowlarr/backup:/data/Backup
-      - ${ARRPATH}Downloads:/downloads
+      - ${MEDIAPATH}Prowlarr/backup:/data/Backup
+      - ${MEDIAPATH}Downloads:/downloads
     restart: unless-stopped
 
     env_file:
@@ -49,9 +49,9 @@ services:
     network_mode: "service:gluetun"
     volumes:
       - ${ARRPATH}Sonarr/config:/config
-      - ${ARRPATH}Sonarr/backup:/data/Backup
-      - ${ARRPATH}Sonarr/tvshows:/data/tvshows
-      - ${ARRPATH}Downloads:/downloads
+      - ${MEDIAPATH}Sonarr/backup:/data/Backup
+      - ${MEDIAPATH}Sonarr/tvshows:/data/tvshows
+      - ${MEDIAPATH}Downloads:/downloads
     restart: unless-stopped
     env_file:
       - 'stack.env'                                       
@@ -62,9 +62,9 @@ services:
     network_mode: "service:gluetun"
     volumes:
       - ${ARRPATH}Radarr/config:/config
-      - ${ARRPATH}Radarr/movies:/data/movies
-      - ${ARRPATH}Radarr/backup:/data/Backup
-      - ${ARRPATH}Downloads:/downloads
+      - ${MEDIAPATH}Radarr/movies:/data/movies
+      - ${MEDIAPATH}Radarr/backup:/data/Backup
+      - ${MEDIAPATH}Downloads:/downloads
     restart: unless-stopped
     env_file:
       - 'stack.env'
@@ -75,8 +75,8 @@ services:
     network_mode: "service:gluetun"
     volumes:
       - ${ARRPATH}Lidarr/config:/config
-      - ${ARRPATH}Lidarr/music:/data/musicfolder
-      - ${ARRPATH}Downloads:/downloads
+      - ${MEDIAPATH}Lidarr/music:/data/musicfolder
+      - ${MEDIAPATH}Downloads:/downloads
     restart: unless-stopped
     env_file:
       - 'stack.env'
@@ -87,8 +87,8 @@ services:
     network_mode: "service:gluetun"
     volumes:
       - ${ARRPATH}Readarr/config:/config
-      - ${ARRPATH}Readarr/books:/data/books
-      - ${ARRPATH}Downloads:/downloads
+      - ${MEDIAPATH}Readarr/books:/data/books
+      - ${MEDIAPATH}Downloads:/downloads
     restart: unless-stopped
     env_file:
       - 'stack.env'
@@ -132,10 +132,10 @@ services:
       - '1900:1900/udp'   # DLNA port
     volumes:
       - ${ARRPATH}Jellyfin/config:/config
-      - ${ARRPATH}Radarr/movies:/data/Movies
-      - ${ARRPATH}Sonarr/tvshows:/data/TVShows
-      - ${ARRPATH}Lidarr/music:/data/Music
-      - ${ARRPATH}Readarr/books:/data/Books
+      - ${MEDIAPATH}Radarr/movies:/data/Movies
+      - ${MEDIAPATH}Sonarr/tvshows:/data/TVShows
+      - ${MEDIAPATH}Lidarr/music:/data/Music
+      - ${MEDIAPATH}Readarr/books:/data/Books
     env_file:
       - 'stack.env'
     restart: unless-stopped
@@ -149,7 +149,7 @@ services:
       - "com.centurylinklabs.watchtower.enable=false"
     volumes:
       - ${ARRPATH}qbittorrent/config:/config
-      - ${ARRPATH}Downloads:/downloads
+      - ${MEDIAPATH}Downloads:/downloads
     environment:
       - WEBUI_PORT=8080
       - TORRENTING_PORT=6881
